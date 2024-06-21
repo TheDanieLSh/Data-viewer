@@ -8,4 +8,5 @@ host.Start();
 
 Console.WriteLine("Nancy is running on http://localhost:5000");
 Console.ReadLine();
+
 host.Stop();

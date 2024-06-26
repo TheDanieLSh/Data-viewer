@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "data_viewer_frontend", "..\Data_viewer_frontend\data_viewer_frontend\data_viewer_frontend.esproj", "{2311F755-49B5-43BF-9371-27D034B376F3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F0F6F317-0D6D-4D08-A8DA-5A29A08917A4} = {F0F6F317-0D6D-4D08-A8DA-5A29A08917A4}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "data_viewer_backend", "..\Data_viewer_backend\Data_viewer_backend\data_viewer_backend.csproj", "{F0F6F317-0D6D-4D08-A8DA-5A29A08917A4}"
 EndProject

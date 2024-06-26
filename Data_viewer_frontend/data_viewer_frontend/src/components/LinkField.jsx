@@ -1,11 +1,15 @@
-export default function LinkField() {
-
+ï»¿export default function LinkField() {
+    const dataLoad = (e) => {
+        e.preventDefault();
+        const link = e.target.get('dataLink')
+        console.log(link);
+    }
 
     return (
         <div className="link-field">
-            <form>
-                <input type="text" />
-                <button>Çàãğóçèòü</button>
+            <form onSubmit={(e) => dataLoad(e)}>
+                <input type="text" name="dataLink" />
+                <button>Ğ—Ğ°Ğ³Ñ€ÑƒĞ·Ğ¸Ñ‚ÑŒ</button>
             </form>
         </div>
     )

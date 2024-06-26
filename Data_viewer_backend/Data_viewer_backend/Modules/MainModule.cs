@@ -6,17 +6,22 @@ public class MainModule : NancyModule
     {
         Get("/", args => "Hello from Nancy!");
 
-        Post("/parsejson", args =>
+        Post("/send_file", args =>
         {
-            var json = this.Request.Body.AsString();
-            return Response.AsText(json);
+              
         });
 
-        Post("/parsexml", args =>
-        {
-            var xml = this.Request.Body.AsString();
-            return Response.AsText(xml);
-        });
+        //Post("/parsejson", args =>
+        //{
+        //    var json = this.Request.Body.AsString();
+        //    return Response.AsText(json);
+        //});
+
+        //Post("/parsexml", args =>
+        //{
+        //    var xml = this.Request.Body.AsString();
+        //    return Response.AsText(xml);
+        //});
     }
 }
 

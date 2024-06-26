@@ -8,6 +8,8 @@
     return (
         <div className="link-field">
             <form onSubmit={(e) => dataLoad(e)}>
+                <label>Вставьте ссылку на файл:</label>
+                <br />
                 <input type="text" name="dataLink" />
                 <button>Загрузить</button>
             </form>

@@ -8,7 +8,7 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "data_viewer_frontend", "..\
 		{F0F6F317-0D6D-4D08-A8DA-5A29A08917A4} = {F0F6F317-0D6D-4D08-A8DA-5A29A08917A4}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "data_viewer_backend", "..\Data_viewer_backend\Data_viewer_backend\data_viewer_backend.csproj", "{F0F6F317-0D6D-4D08-A8DA-5A29A08917A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "data_viewer_backend_cs", "..\Data_viewer_backend\Data_viewer_backend\data_viewer_backend_cs.csproj", "{F0F6F317-0D6D-4D08-A8DA-5A29A08917A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -17,7 +17,6 @@ public class MainModule : NancyModule
         //Post("/parsejson", args =>
         //{
         //    var json = this.Request.Body.AsString();
-        //    return Response.AsText(json);
         //});
 
         //Post("/parsexml", args =>

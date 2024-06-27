@@ -2,13 +2,16 @@
 
 public class MainModule : NancyModule
 {
+    private readonly static HttpClient httpClient = new HttpClient();
     public MainModule()
     {
         Get("/", args => "Hello from Nancy!");
 
-        Post("/send_file", args =>
+        Post("/send_file", async args =>
         {
-              
+              var resp = await httpClient.GetAsync(args);
+              var jsonString = await resp.Content.ReadAsStringAsync();
+              Console.WriteLine(jsonString);
         });
 
         //Post("/parsejson", args =>

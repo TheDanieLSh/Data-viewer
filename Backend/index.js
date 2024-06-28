@@ -12,4 +12,4 @@ router.get('/', (context) => {
 })
 
 
-app.listen({ port: 4090 });
+await app.listen({ port: 4090 });

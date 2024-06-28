@@ -1,5 +1,13 @@
 import { render } from 'preact'
-import { App } from './app.jsx'
-import './index.css'
+import LinkField from './components/LinkField'
+import './css/index.scss'
 
-render(<App />, document.getElementById('app'))
+function App() {
+    return (
+        <>
+            <LinkField />
+        </>
+    )
+}
+
+render(<App />, document.getElementById('app'));

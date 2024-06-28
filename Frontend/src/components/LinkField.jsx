@@ -1,10 +1,12 @@
-﻿export default function LinkField() {
+﻿import '../css/LinkField.scss'
+
+export default function LinkField() {
     const dataLoad = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const link = formData.get('dataLink');
 
-        fetch('http://localhost:4090/process_file', {
+        fetch('http://localhost:4090/file_process', {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' },
             body: link,

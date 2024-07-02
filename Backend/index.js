@@ -1,9 +1,11 @@
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
 import { xml2js } from "https://deno.land/x/xml2js@1.0.0/mod.ts";
+import { oakCors } from "https://deno.land/x/cors/mod.ts";
 
 const app = new Application();
 const router = new Router();
 
+app.use(oakCors());
 app.use(router.routes());
 app.use(router.allowedMethods());
 

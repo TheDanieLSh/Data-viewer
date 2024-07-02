@@ -1,8 +1,7 @@
 ﻿import '../css/LinkField.scss'
 import { useState } from 'preact/hooks'
 
-export default function LinkField() {
-    const [data, setData] = useState({});
+export default function LinkField({ data, setData }) {
 
     const dataLoad = (e) => {
         e.preventDefault();

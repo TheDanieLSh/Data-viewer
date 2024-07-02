@@ -1,11 +1,16 @@
 import { render } from 'preact'
-import LinkField from './components/LinkField'
+import { useState } from 'preact/hooks'
 import './css/index.scss'
+import LinkField from './components/LinkField'
+import Workspace from './components/Workspace'
 
 function App() {
+    const [data, setData] = useState({});
+
     return (
         <>
-            <LinkField />
+            <LinkField data={data} setData={setData} />
+            <Workspace data={data} setData={setData} />
         </>
     )
 }

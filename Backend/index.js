@@ -40,8 +40,6 @@ router.post('/file_process', async (context) => {
 
     });
 
-    console.log(outputFile);
-
     if (!outputFile) {
         context.response.body = 'Unsupported type of the file';
     } else {
@@ -60,20 +58,21 @@ await app.listen({ hostname: HOST, port: PORT });
 
 function xmlJsonPrettify(json) {
     for (const field in json) {
-        recursion(field);
+        json[field] = recursion(json[field]);
     }
 
     return json;
 
     function recursion(field) {
-        if (Object.keys(field).length > 0) {
+        if (typeof field === 'object' && field !== null) {
+            if (field.hasOwnProperty('_text') && Object.keys(field).length === 1)
+                return field._text;
+            
             for (const key in field) {
-                if (key === '_text') {
-                    field = field._text;
-                } else {
-                    recursion(key);
-                }
+                field[key] = recursion(field[key]);
             }
         }
+        
+        return field;
     }
 }

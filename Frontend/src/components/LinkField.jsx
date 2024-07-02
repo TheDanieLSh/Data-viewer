@@ -1,6 +1,9 @@
 ﻿import '../css/LinkField.scss'
+import { useState } from 'preact/hooks'
 
 export default function LinkField() {
+    const [data, setData] = useState({});
+
     const dataLoad = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -10,8 +13,10 @@ export default function LinkField() {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' },
             body: link,
-        })
+        }).then(resp => resp.json()).then(json => setData(json))
     }
+
+    console.log(data);
 
     return (
         <div className="link-field">

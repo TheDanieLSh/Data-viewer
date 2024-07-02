@@ -33,7 +33,7 @@ router.post('/file_process', async (context) => {
     }).then(result => {
 
         if (isXML) {
-            const json = xml2js(result, { compact: true });
+            const json = xmlJsonPrettify(xml2js(result, { compact: true }));
             outputFile = JSON.stringify(json, null, '\t');
 
         } else outputFile = result
@@ -56,3 +56,24 @@ const PORT = 4090;
 console.log('Deno server is running at ' + HOST + ':' + PORT);
 
 await app.listen({ hostname: HOST, port: PORT });
+
+
+function xmlJsonPrettify(json) {
+    for (const field in json) {
+        recursion(field);
+    }
+
+    return json;
+
+    function recursion(field) {
+        if (Object.keys(field).length > 0) {
+            for (const key in field) {
+                if (key === '_text') {
+                    field = field._text;
+                } else {
+                    recursion(key);
+                }
+            }
+        }
+    }
+}

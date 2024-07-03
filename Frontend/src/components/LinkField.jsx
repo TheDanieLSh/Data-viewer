@@ -1,5 +1,5 @@
-﻿import '../css/LinkField.scss'
-import { useState } from 'preact/hooks'
+﻿import { useState } from 'preact/hooks'
+import '../css/LinkField.scss'
 
 export default function LinkField({ data, setData }) {
 

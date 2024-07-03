@@ -1,8 +1,8 @@
 import { render } from 'preact'
 import { useState } from 'preact/hooks'
-import './css/index.scss'
 import LinkField from './components/LinkField'
 import Workspace from './components/Workspace'
+import './css/index.scss'
 
 function App() {
     const [data, setData] = useState({});

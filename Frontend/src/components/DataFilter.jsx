@@ -10,7 +10,7 @@ export default function DataFilter({ data }) {
                 <div className='data-filter__header'>
                     Выбор вложенности
                 </div>
-                <Hierarchy />
+                <Hierarchy data={data} />
             </div>
             <div className='data-filter__section'>
                 <div className='data-filter__header'>

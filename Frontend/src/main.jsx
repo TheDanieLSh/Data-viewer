@@ -8,7 +8,7 @@ function App() {
     const [data, setData] = useState({});
 
     return (
-        <>
+        <>  
             <LinkField data={data} setData={setData} />
             <Workspace data={data} setData={setData} />
         </>

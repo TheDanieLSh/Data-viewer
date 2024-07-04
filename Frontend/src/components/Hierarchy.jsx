@@ -20,34 +20,6 @@ export default function Hierarchy({ data }) {
 
     const firstLevel = levelParse(json);
 
-    function levelParse(lvl) {
-        let result = [];
-
-        if (Array.isArray(lvl)) {
-            result = lvl.values.map(val => val);
-            result.forEach(el => {
-                if (typeof el === 'object') {
-
-                }
-            });
-        } else {
-            result = Object.keys(lvl).map(key => key);
-        }
-
-        return result
-    }
-
-    function goTo(e) {
-        if (curLvl !== 'root') {
-            levelHistory.push(curLvl);
-        }
-        setCurLvl(e.target.innerHTML);
-    }
-
-    function stringToPath(obj, path) {
-        return path.split('.').reduce((acc, cur) => acc[cur], obj);
-    }
-
     return (
         <div className="hierarchy">
             {firstLevel.map(item => (
@@ -55,4 +27,32 @@ export default function Hierarchy({ data }) {
             ))}
         </div>
     )  
+}
+
+function levelParse(lvl) {
+    let result = [];
+
+    if (Array.isArray(lvl)) {
+        result = lvl.values.map(val => val);
+        result.forEach(el => {
+            if (typeof el === 'object') {
+
+            }
+        });
+    } else {
+        result = Object.keys(lvl).map(key => key);
+    }
+
+    return result
+}
+
+function goTo(e) {
+    if (curLvl !== 'root') {
+        levelHistory.push(curLvl);
+    }
+    setCurLvl(e.target.innerHTML);
+}
+
+function stringToPath(obj, path) {
+    return path.split('.').reduce((acc, cur) => acc[cur], obj);
 }

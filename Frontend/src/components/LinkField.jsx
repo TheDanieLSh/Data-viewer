@@ -15,8 +15,6 @@ export default function LinkField({ data, setData }) {
         }).then(resp => resp.json()).then(json => setData(json))
     }
 
-    console.log(data);
-
     return (
         <div className="link-field">
             <form onSubmit={(e) => dataLoad(e)} /* autoComplete="off"*/ >

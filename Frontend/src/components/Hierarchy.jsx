@@ -4,7 +4,21 @@ import '../css/Hierarchy.scss'
 let levelHistory = [];
 
 export default function Hierarchy({ data }) {
-    const [curLvl, setCurLvl] = useState(null);
+    const [curLvl, setCurLvl] = useState('root');
+
+    let json = data;
+
+    // console.log(levelHistory);
+
+    if (curLvl !== 'root') {
+        let nesting = (levelHistory.reduce((acc, cur) => acc + '.' + cur, ''));
+        console.log(nesting);
+        nesting += '.' + curLvl;
+        console.log(nesting);
+        json = stringToPath(data, nesting);
+    }
+
+    const firstLevel = levelParse(json);
 
     function levelParse(lvl) {
         let result = [];
@@ -24,10 +38,15 @@ export default function Hierarchy({ data }) {
     }
 
     function goTo(e) {
-        console.log(e.target.innerHTML);
+        if (curLvl !== 'root') {
+            levelHistory.push(curLvl);
+        }
+        setCurLvl(e.target.innerHTML);
     }
 
-    const firstLevel = levelParse(data);
+    function stringToPath(obj, path) {
+        return path.split('.').reduce((acc, cur) => acc[cur], obj);
+    }
 
     return (
         <div className="hierarchy">

@@ -1,17 +1,18 @@
+import { dataSignal } from '../store.js'
 import { useState } from 'preact/hooks'
 import '../css/Hierarchy.scss'
 
 let levelHistory = [];
 
-export default function Hierarchy({ data }) {
+export default function Hierarchy() {
     const [curLvl, setCurLvl] = useState('root');
 
-    let json = data;
+    let json = dataSignal.value;
 
     if (curLvl !== 'root') {
         let nesting = (levelHistory.reduce((acc, cur) => acc + '.' + cur, ''));
         nesting += '.' + curLvl;
-        json = stringToPath(data, nesting);
+        json = stringToPath(dataSignal.value, nesting);
     }
 
     const firstLevel = levelParse(json);

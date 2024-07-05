@@ -2,7 +2,7 @@ import Hierarchy from './Hierarchy'
 import Filters from './Filters'
 import '../css/DataFilter.scss'
 
-export default function DataFilter({ data }) {
+export default function DataFilter() {
 
     return (
         <div className='data-filter'>
@@ -11,7 +11,7 @@ export default function DataFilter({ data }) {
                     <div className='back-button' onClick={() => goBack()}>←</div>
                     <div>Выбор вложенности</div>
                 </div>
-                <Hierarchy data={data} />
+                <Hierarchy />
             </div>
             <div className='data-filter__section'>
                 <div className='data-filter__header'>

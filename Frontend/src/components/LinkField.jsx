@@ -1,7 +1,7 @@
-﻿import { useState } from 'preact/hooks'
+﻿import { dataSignal } from '../store.js'
 import '../css/LinkField.scss'
 
-export default function LinkField({ data, setData }) {
+export default function LinkField() {
 
     const dataLoad = (e) => {
         e.preventDefault();
@@ -12,7 +12,7 @@ export default function LinkField({ data, setData }) {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' },
             body: link,
-        }).then(resp => resp.json()).then(json => setData(json))
+        }).then(resp => resp.json()).then(json => dataSignal.value = json);
     }
 
     return (

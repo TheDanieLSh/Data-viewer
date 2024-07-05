@@ -4,15 +4,19 @@ import Filters from './Filters'
 import '../css/DataFilter.scss'
 
 export default function DataFilter() {
-    function goBack() {
-        
-    }
 
     return (
         <div className='data-filter'>
             <div className='data-filter__section'>
                 <div className='data-filter__header'>
-                    <div className='back-button' onClick={() => goBack()}>←</div>
+                    <div
+                        className='back-button'
+                        onClick={() => {
+                            historySignal.value = historySignal.value.slice(0, -1);
+                        }}
+                    >
+                        ←
+                    </div>
                     <div>Выбор вложенности</div>
                 </div>
                 <Hierarchy />

@@ -1,19 +1,13 @@
 import { dataSignal, historySignal } from '../store.js'
-import { useState } from 'preact/hooks'
 import '../css/Hierarchy.scss'
 
 export default function Hierarchy() {
-    const [curLvl, setCurLvl] = useState('root');
+    const data = dataSignal.value;
+    const history = historySignal.value;
 
-    let json = dataSignal.value;
-
-    if (curLvl !== 'root') {
-        let nesting = (historySignal.value.reduce((acc, cur) => acc + '.' + cur, ''));
-        nesting += '.' + curLvl;
-        json = stringToPath(dataSignal.value, nesting);
-    }
-
-    const firstLevel = levelParse(json);
+    const nesting = (history.reduce((acc, cur) => acc + '.' + cur, ''));
+    const json = (history.length > 0) ? stringToPath(data, nesting) : data;
+    const curLvl = levelParse(json);
 
     function levelParse(lvl) {
         let result = [];
@@ -32,13 +26,6 @@ export default function Hierarchy() {
         return result
     }
     
-    function goTo(e) {
-        if (curLvl !== 'root') {
-            historySignal.value.push(curLvl);
-        }
-        setCurLvl(e.target.innerHTML);
-    }
-    
     function stringToPath(obj, path) {
         path = path.replace(/^\.+/, ''); //очистка от пустого элемента из-за точки в начале строки
         return path.split('.').reduce((acc, cur) => acc[cur], obj);
@@ -46,8 +33,15 @@ export default function Hierarchy() {
 
     return (
         <div className="hierarchy">
-            {firstLevel.map(item => (
-                <div onClick={(e) => {goTo(e)}} className="hierarchy__item">{item}</div>
+            {curLvl.map(item => (
+                <div 
+                    className="hierarchy__item"
+                    onClick={(e) => {
+                        historySignal.value = [...historySignal.value, e.target.innerHTML];
+                    }}
+                >
+                        {item}
+                </div>
             ))}
         </div>
     )  

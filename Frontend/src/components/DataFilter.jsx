@@ -8,7 +8,8 @@ export default function DataFilter({ data }) {
         <div className='data-filter'>
             <div className='data-filter__section'>
                 <div className='data-filter__header'>
-                    Выбор вложенности
+                    <div className='back-button' onClick={() => goBack()}>←</div>
+                    <div>Выбор вложенности</div>
                 </div>
                 <Hierarchy data={data} />
             </div>

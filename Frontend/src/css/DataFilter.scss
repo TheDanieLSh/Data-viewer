@@ -13,7 +13,19 @@
         border-right: 2px solid rgb(152, 78, 32);
     }
     &__header {
+        position: relative;
         padding: 8px 0;
         border-bottom: 4px solid rgb(152, 78, 32);
+
+        .back-button {
+            position: absolute;
+            left: 8px;
+            bottom: 4px;
+            padding: 5px;
+            background-color: #626272;
+            border-radius: 10px;
+            cursor: pointer;
+            display: none;
+        }
     }
 }

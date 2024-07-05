@@ -1,13 +1,14 @@
-import { dataSignal, historySignal } from '../store.js'
+import { dataSignal, historySignal, filteredSignal } from '../store.js'
 import '../css/Hierarchy.scss'
 
 export default function Hierarchy() {
     const data = dataSignal.value;
     const history = historySignal.value;
+    const filteredJson = filteredSignal.value;
 
     const nesting = (history.reduce((acc, cur) => acc + '.' + cur, ''));
-    const json = (history.length > 0) ? stringToPath(data, nesting) : data;
-    const curLvl = levelParse(json);
+    filteredSignal.value = (history.length > 0) ? stringToPath(data, nesting) : data;
+    const curLvl = levelParse(filteredJson);
 
     function levelParse(lvl) {
         let result = [];

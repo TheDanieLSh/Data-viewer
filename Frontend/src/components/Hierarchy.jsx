@@ -14,12 +14,18 @@ export default function Hierarchy() {
         let result = [];
     
         if (Array.isArray(lvl)) {
-            result = lvl.values.map(val => val);
-            result.forEach(el => {
-                if (typeof el === 'object') {
-    
+            result = lvl.values.map(val => {
+                if (typeof val === 'object') {
+                    return 'object'
+                } else {
+                    return val
                 }
             });
+            // result.forEach(el => {
+            //     if (typeof el === 'object') {
+                    
+            //     }
+            // });
         } else {
             result = Object.keys(lvl).map(key => key);
         }

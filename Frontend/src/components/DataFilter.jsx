@@ -1,8 +1,12 @@
+import { historySignal } from '../store'
 import Hierarchy from './Hierarchy'
 import Filters from './Filters'
 import '../css/DataFilter.scss'
 
 export default function DataFilter() {
+    function goBack() {
+        
+    }
 
     return (
         <div className='data-filter'>

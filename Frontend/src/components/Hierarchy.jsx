@@ -1,8 +1,6 @@
-import { dataSignal } from '../store.js'
+import { dataSignal, historySignal } from '../store.js'
 import { useState } from 'preact/hooks'
 import '../css/Hierarchy.scss'
-
-let levelHistory = [];
 
 export default function Hierarchy() {
     const [curLvl, setCurLvl] = useState('root');
@@ -10,7 +8,7 @@ export default function Hierarchy() {
     let json = dataSignal.value;
 
     if (curLvl !== 'root') {
-        let nesting = (levelHistory.reduce((acc, cur) => acc + '.' + cur, ''));
+        let nesting = (historySignal.value.reduce((acc, cur) => acc + '.' + cur, ''));
         nesting += '.' + curLvl;
         json = stringToPath(dataSignal.value, nesting);
     }
@@ -36,7 +34,7 @@ export default function Hierarchy() {
     
     function goTo(e) {
         if (curLvl !== 'root') {
-            levelHistory.push(curLvl);
+            historySignal.value.push(curLvl);
         }
         setCurLvl(e.target.innerHTML);
     }

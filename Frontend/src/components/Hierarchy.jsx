@@ -12,27 +12,22 @@ export default function Hierarchy() {
 
     function levelParse(lvl) {
         let result = [];
-    
+
         if (Array.isArray(lvl)) {
-            result = lvl.values.map(val => {
+            lvl.forEach((val, ind) => {
                 if (typeof val === 'object') {
-                    return 'object'
+                    result.push('{...}');
                 } else {
-                    return val
+                    result.push(val);
                 }
-            });
-            // result.forEach(el => {
-            //     if (typeof el === 'object') {
-                    
-            //     }
-            // });
+            })
         } else {
             result = Object.keys(lvl).map(key => key);
         }
-    
+
         return result
     }
-    
+
     function stringToPath(obj, path) {
         path = path.replace(/^\.+/, ''); //очистка от пустого элемента из-за точки в начале строки
         return path.split('.').reduce((acc, cur) => acc[cur], obj);
@@ -41,15 +36,17 @@ export default function Hierarchy() {
     return (
         <div className="hierarchy">
             {curLvl.map(item => (
-                <div 
+                <div
                     className="hierarchy__item"
                     onClick={(e) => {
                         historySignal.value = [...historySignal.value, e.target.innerHTML];
                     }}
                 >
-                        {item}
+                    {item}
                 </div>
             ))}
         </div>
-    )  
+    )
 }
+// https://lidgroup.ru/local/cron/new_import/xml_files/last/defanspremium.xml
+// https://a.fsk.ru/api/flats/flats-vladivostok

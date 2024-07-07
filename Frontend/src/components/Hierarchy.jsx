@@ -14,13 +14,14 @@ export default function Hierarchy() {
         let result = [];
 
         if (Array.isArray(lvl)) {
-            lvl.forEach((val, ind) => {
-                if (typeof val === 'object') {
-                    result.push('{...}');
-                } else {
-                    result.push(val);
-                }
-            })
+            result = lvl.map((val, i) => i);
+            // lvl.forEach((val, i) => {
+            //     if (typeof val === 'object') {
+            //         result.push('{...}');
+            //     } else {
+            //         result.push(val);
+            //     }
+            // })
         } else {
             result = Object.keys(lvl).map(key => key);
         }
@@ -43,6 +44,7 @@ export default function Hierarchy() {
                     }}
                 >
                     {item}
+                    {/* {typeof item === 'number' ? `[${item}]` : item} */}
                 </div>
             ))}
         </div>

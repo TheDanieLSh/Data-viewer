@@ -1,4 +1,5 @@
-import { filteredSignal } from "../store"
+import { filteredSignal } from '../store'
+import '../css/Filters.scss'
 
 export default function Filters() {
     const filtersObj = {};
@@ -7,7 +8,8 @@ export default function Filters() {
         filteredSignal.value.forEach(el => {
             if (typeof el === 'object') {
                 Object.keys(el).forEach(key => {
-                    filtersObj[key].push(el.key);
+                    if (!filtersObj[key]) filtersObj[key] = [];
+                    filtersObj[key].push(el[key]);
                 })
             }
         });

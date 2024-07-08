@@ -11,6 +11,7 @@ export default function DataFilter() {
                 <div className='data-filter__header'>
                     <div
                         className='back-button'
+                        style={{ display: historySignal.value.length > 0 ? 'block' : 'none' }}
                         onClick={() => {
                             historySignal.value = historySignal.value.slice(0, -1);
                         }}

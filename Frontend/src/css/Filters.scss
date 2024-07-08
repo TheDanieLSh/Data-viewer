@@ -5,6 +5,8 @@
     overflow: hidden;
 
     .property {
+        height: 50px;
+        white-space: nowrap;
 
         &__name {
             display: inline-block;

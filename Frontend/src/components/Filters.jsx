@@ -20,7 +20,7 @@ export default function Filters() {
             {Object.keys(filtersObj).map(key => (
                 <div className="property">
                     <div className="property__name">{key + ':'}</div>
-                    <div className="property__values">{[...filtersObj[key]].map((val, i) => {
+                    <div className="property__values">{[...filtersObj[key]].map(val => {
                         if (typeof val === 'string' || typeof val === 'number')
                             return val + ', '
                     })}</div>

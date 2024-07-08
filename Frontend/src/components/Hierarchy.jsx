@@ -44,7 +44,6 @@ export default function Hierarchy() {
                     }}
                 >
                     {item}
-                    {/* {typeof item === 'number' ? `[${item}]` : item} */}
                 </div>
             ))}
         </div>

@@ -7,7 +7,7 @@ export default function DataFilter() {
 
     return (
         <div className='data-filter'>
-            <div className='data-filter__section'>
+            <div className='data-filter__section-hierarchy'>
                 <div className='data-filter__header'>
                     <div
                         className='back-button'
@@ -21,7 +21,7 @@ export default function DataFilter() {
                 </div>
                 <Hierarchy />
             </div>
-            <div className='data-filter__section'>
+            <div className='data-filter__section-filters'>
                 <div className='data-filter__header'>
                     Фильтрация
                 </div>

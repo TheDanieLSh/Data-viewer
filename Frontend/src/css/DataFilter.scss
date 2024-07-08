@@ -2,18 +2,26 @@
     display: flex;
     width: 60%;
     margin-top: 60px;
-    justify-content: center;
     font-size: 24px;
     border: 4px solid rgb(152, 78, 32);
 
-    &__section {
-        width: 50%;
+    &__section-hierarchy {
+        width: 30%;
         text-align: center;
         border-left: 2px solid rgb(152, 78, 32);
         border-right: 2px solid rgb(152, 78, 32);
     }
+
+    &__section-filters {
+        width: 70%;
+        text-align: left;
+        border-left: 2px solid rgb(152, 78, 32);
+        border-right: 2px solid rgb(152, 78, 32);
+    }
+
     &__header {
         position: relative;
+        text-align: center;
         padding: 8px 0;
         border-bottom: 4px solid rgb(152, 78, 32);
 

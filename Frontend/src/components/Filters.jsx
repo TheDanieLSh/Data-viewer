@@ -3,21 +3,31 @@ import '../css/Filters.scss'
 
 export default function Filters() {
     const filtersObj = {};
-    
+
     if (Array.isArray(filteredSignal.value)) {
         filteredSignal.value.forEach(el => {
             if (typeof el === 'object') {
                 Object.keys(el).forEach(key => {
-                    if (!filtersObj[key]) filtersObj[key] = [];
-                    filtersObj[key].push(el[key]);
+                    if (!filtersObj[key]) filtersObj[key] = new Set();
+                    filtersObj[key].add(el[key]);
                 })
             }
         });
     }
 
     return (
-        <pre className="filters">
-            {JSON.stringify(filtersObj, null, 1)}
-        </pre>
+        <div className="filters">
+            {Object.keys(filtersObj).map(key => (
+                <div className="property">
+                    <div className="property__name">{key + ':'}</div>
+                    <div className="property__values">{[...filtersObj[key]].map(val => {
+                        if (typeof val === 'string' || typeof val === 'number')
+                            return val
+
+                        return 'Non-readable'
+                    })}</div>
+                </div>
+            ))}
+        </div>
     )
 }

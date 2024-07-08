@@ -1,3 +1,21 @@
 .filters {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 8px;
     overflow: hidden;
+
+    .property {
+
+        &__name {
+            display: inline-block;
+            padding: 3px;
+            margin-right: 8px;
+            background-color: #303041;
+            border-radius: 5px;
+        }
+
+        &__values {
+            display: inline-block;
+        }
+    }
 }

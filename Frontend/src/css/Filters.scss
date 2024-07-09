@@ -15,9 +15,11 @@
         &__name {
             display: inline-block;
             padding: 3px;
-            margin-right: 8px;
+            margin-right: 5px;
             background-color: #303041;
             border-radius: 5px;
+            font-family: 'Rubik';
+            font-size: 20px;
         }
 
         &__values {
@@ -29,7 +31,6 @@
         &__expand {
             margin-left: 5px;
             background-color: #303041;
-            color: white;
             border-radius: 5px;
             padding: 1px;
             cursor: pointer;

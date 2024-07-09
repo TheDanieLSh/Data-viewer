@@ -9,6 +9,8 @@
         width: 95%;
         white-space: nowrap;
         overflow: hidden;
+        display: flex;
+        align-items: center;
 
         &__name {
             display: inline-block;
@@ -21,6 +23,16 @@
         &__values {
             display: inline-block;
             font-size: 20px;
+            overflow: hidden;
+        }
+
+        &__expand {
+            margin-left: 5px;
+            background-color: #303041;
+            color: white;
+            border-radius: 5px;
+            padding: 1px;
+            cursor: pointer;
         }
     }
 }

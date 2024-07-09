@@ -1,4 +1,5 @@
 import { filteredSignal } from '../store'
+import Propertie from './Propertie'
 import '../css/Filters.scss'
 
 export default function Filters() {
@@ -16,18 +17,9 @@ export default function Filters() {
     }
 
     return (
-        <div className="filters">
+        <div className='filters'>
             {Object.keys(filtersObj).map(key => (
-                <div className="property">
-                    <div className="property__name">{key + ':'}</div>
-                    <div className="property__values">
-                        {[...filtersObj[key]].map(val => {
-                            if (typeof val === 'string' || typeof val === 'number')
-                                return val + '; '
-                        })}
-                    </div>
-                    {}
-                </div>
+                <Propertie name={key} values={[...filtersObj[key]]} />
             ))}
         </div>
     )

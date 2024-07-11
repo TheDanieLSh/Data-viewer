@@ -38,12 +38,16 @@
 
         &__val {
             display: inline-block;
-            margin-right: 5px;
             cursor: pointer;
 
             &:hover {
                 text-decoration: underline;
             }
+        }
+
+        &__separator {
+            display: inline-block;
+            margin-right: 5px;
         }
     }
 }

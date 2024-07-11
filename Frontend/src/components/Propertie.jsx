@@ -16,7 +16,12 @@ export default function Propertie({ name, values }) {
             <div className='property__values' ref={valuesRef}>
                 {values.map(val => {
                     if (['string', 'number', 'boolean'].includes(typeof val))
-                        return <div className='property__val'>{val + ';'}</div>
+                        return (
+                            <>
+                                <div className='property__val'>{val}</div>
+                                <div className='property__separator'>;</div>
+                            </>
+                        )
                 })}
             </div>
             {isOverflow && <div className='property__expand'>...</div>}

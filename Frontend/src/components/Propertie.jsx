@@ -15,7 +15,7 @@ export default function Propertie({ name, values }) {
             <div className='property__name'>{name + ':'}</div>
             <div className='property__values' ref={valuesRef}>
                 {values.map(val => {
-                    if (typeof val === 'string' || typeof val === 'number')
+                    if (['string', 'number', 'boolean'].includes(typeof val))
                         return val + '; '
                 })}
             </div>

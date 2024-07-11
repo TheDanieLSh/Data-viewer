@@ -12,6 +12,8 @@ export default function LinkField() {
 
         setLoading(true);
 
+        if (dataSignal.value) dataSignal.value = {};
+
         await fetch('http://localhost:4090/file_process', {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' },

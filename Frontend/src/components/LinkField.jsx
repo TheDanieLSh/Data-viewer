@@ -25,7 +25,7 @@ export default function LinkField() {
 
     return (
         <div className="link-field">
-            <form onSubmit={(e) => dataLoad(e)} /* autoComplete="off"*/ >
+            <form onSubmit={(e) => dataLoad(e)}>
                 <label>Вставьте ссылку на файл:</label>
                 <br />
                 <input type="text" name="dataLink" />

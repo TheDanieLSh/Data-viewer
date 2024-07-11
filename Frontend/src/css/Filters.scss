@@ -35,5 +35,15 @@
             padding: 1px;
             cursor: pointer;
         }
+
+        &__val {
+            display: inline-block;
+            margin-right: 5px;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 }

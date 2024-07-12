@@ -49,5 +49,11 @@
             display: inline-block;
             margin-right: 5px;
         }
+
+        .isActive {
+            background-color: #303041;
+            border-radius: 3px;
+            padding: 2px 3px;
+        }
     }
 }

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 
-export default function Propertie({ name, values }) {
+export default function Propertie({ name, values, chosenValues }) {
     const valuesRef = useRef(null);
     const [isOverflow, setIsOverflow] = useState(false);
 
@@ -10,6 +10,19 @@ export default function Propertie({ name, values }) {
         }
     }, [values])
 
+    const toggleValue = (e) => {
+        if (!chosenValues[name]) chosenValues[name] = new Set();
+
+        if (!chosenValues[name].has(e.target.innerHTML)) {
+            chosenValues[name].add(e.target.innerHTML);
+        } else {
+            chosenValues[name].delete(e.target.innerHTML);
+            if (chosenValues[name].size == 0) delete chosenValues[name];
+        }
+
+        e.target.classList.toggle('isActive');
+    }
+
     return (
         <div className='property'>
             <div className='property__name'>{name + ':'}</div>
@@ -18,7 +31,7 @@ export default function Propertie({ name, values }) {
                     if (['string', 'number', 'boolean'].includes(typeof val))
                         return (
                             <>
-                                <div className='property__val'>{val}</div>
+                                <div className='property__val' onClick={(e) => {toggleValue(e)}}>{val}</div>
                                 <div className='property__separator'>;</div>
                             </>
                         )

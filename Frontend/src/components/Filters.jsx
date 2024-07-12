@@ -4,6 +4,7 @@ import '../css/Filters.scss'
 
 export default function Filters() {
     const filtersObj = {};
+    const chosenValues = {};
 
     if (Array.isArray(filteredSignal.value)) {
         filteredSignal.value.forEach(el => {
@@ -19,7 +20,7 @@ export default function Filters() {
     return (
         <div className='filters'>
             {Object.keys(filtersObj).map(key => (
-                <Propertie name={key} values={[...filtersObj[key]]} />
+                <Propertie name={key} values={[...filtersObj[key]]} chosenValues={chosenValues} />
             ))}
         </div>
     )

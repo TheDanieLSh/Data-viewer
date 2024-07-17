@@ -4,6 +4,6 @@ export const dataSignal = signal({});
 
 export const historySignal = signal([]);
 
-export const nestedSignal = signal([]);
+export const nestedSignal = signal({});
 
-export const filteredSignal = signal({});
+export const filteredSignal = signal(null);

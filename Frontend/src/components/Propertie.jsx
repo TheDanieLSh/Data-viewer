@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
-import { nestedSignal } from '../store'
+import { filteredSignal, nestedSignal } from '../store'
 
 export default function Propertie({ name, values, chosenValues }) {
     const valuesRef = useRef(null);
@@ -45,7 +45,7 @@ export default function Propertie({ name, values, chosenValues }) {
     )
 
     function resultFilter() {
-        nestedSignal.value = nestedSignal.value.filter(obj => {
+        filteredSignal.value = nestedSignal.value.filter(obj => {
             return Object.keys(obj).every(prop => {
                 if (chosenValues[prop]) {
                     return chosenValues[prop].has(obj[prop]);

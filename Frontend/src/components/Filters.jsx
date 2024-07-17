@@ -2,9 +2,10 @@ import { filteredSignal } from '../store'
 import Propertie from './Propertie'
 import '../css/Filters.scss'
 
+const chosenValues = {};
+
 export default function Filters() {
     const filtersObj = {};
-    const chosenValues = {};
 
     if (Array.isArray(filteredSignal.value)) {
         filteredSignal.value.forEach(el => {

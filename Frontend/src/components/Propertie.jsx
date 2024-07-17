@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
+import { filteredSignal } from '../store'
 
 export default function Propertie({ name, values, chosenValues }) {
     const valuesRef = useRef(null);
@@ -21,6 +22,8 @@ export default function Propertie({ name, values, chosenValues }) {
         }
 
         e.target.classList.toggle('isActive');
+
+        resultFilter();
     }
 
     return (
@@ -40,4 +43,15 @@ export default function Propertie({ name, values, chosenValues }) {
             {isOverflow && <div className='property__expand'>...</div>}
         </div>
     )
+
+    function resultFilter() {
+        filteredSignal.value = filteredSignal.value.filter(obj => {
+            return Object.keys(obj).every(prop => {
+                if (chosenValues[prop]) {
+                    return chosenValues[prop].has(obj[prop]);
+                }
+                return true
+            })
+        });
+    }
 }

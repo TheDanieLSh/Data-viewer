@@ -1,4 +1,4 @@
-import { filteredSignal } from '../store'
+import { nestedSignal } from '../store'
 import Propertie from './Propertie'
 import '../css/Filters.scss'
 
@@ -7,8 +7,8 @@ const chosenValues = {};
 export default function Filters() {
     const filtersObj = {};
 
-    if (Array.isArray(filteredSignal.value)) {
-        filteredSignal.value.forEach(el => {
+    if (Array.isArray(nestedSignal.value)) {
+        nestedSignal.value.forEach(el => {
             if (typeof el === 'object') {
                 Object.keys(el).forEach(key => {
                     if (!filtersObj[key]) filtersObj[key] = new Set();

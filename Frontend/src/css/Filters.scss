@@ -5,7 +5,7 @@
     overflow: hidden;
 
     .property {
-        height: 50px;
+        height: 40px;
         width: 95%;
         white-space: nowrap;
         overflow: hidden;
@@ -18,7 +18,7 @@
             margin-right: 5px;
             background-color: #303041;
             border-radius: 5px;
-            font-family: 'Play';
+            font-family: "Play";
             font-size: 20px;
         }
 
@@ -54,6 +54,23 @@
             background-color: #303041;
             border-radius: 3px;
             padding: 2px 3px;
+        }
+
+        &.expanded {
+            height: auto;
+            white-space: normal;
+
+            .property__values {
+                display: block;
+            }
+
+            .property__val {
+                display: block;
+            }
+
+            .property__separator {
+                display: none;
+            }
         }
     }
 }

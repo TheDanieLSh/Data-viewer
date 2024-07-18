@@ -2,14 +2,20 @@ import { useEffect, useRef, useState } from 'preact/hooks'
 import { filteredSignal, nestedSignal } from '../store'
 
 export default function Propertie({ name, values, chosenValues }) {
+    const propertyRef = useRef(null);
     const valuesRef = useRef(null);
-    const [isOverflow, setIsOverflow] = useState(false);
+    const [overflow, setOverflow] = useState('');
+    const [expanded, setExpanded] = useState(false);
 
     useEffect(() => {
         if (valuesRef.current) {
-            setIsOverflow(valuesRef.current.scrollWidth > valuesRef.current.clientWidth);
+            if (expanded) {
+                setOverflow('^');
+            } else {
+                setOverflow(valuesRef.current.scrollWidth > valuesRef.current.clientWidth ? '...' : '');
+            }
         }
-    }, [values])
+    }, [values]);
 
     const toggleValue = (e) => {
         if (!chosenValues[name]) chosenValues[name] = new Set();
@@ -26,8 +32,19 @@ export default function Propertie({ name, values, chosenValues }) {
         resultFilter();
     }
 
+    const expandPropertie = (e) => {
+        if (e.target.innerHTML === '...') {
+            propertyRef.current.classList.add('expanded');
+            // e.target.innerHTML = '^';
+        }
+        if (e.target.innerHTML === '^') {
+            propertyRef.current.classList.remove('expanded');
+            // e.target.innerHTML = '...';
+        }
+    }
+
     return (
-        <div className='property'>
+        <div className='property' ref={propertyRef}>
             <div className='property__name'>{name + ':'}</div>
             <div className='property__values' ref={valuesRef}>
                 {values.map(val => {
@@ -40,7 +57,7 @@ export default function Propertie({ name, values, chosenValues }) {
                         )
                 })}
             </div>
-            {isOverflow && <div className='property__expand'>...</div>}
+            <div className='property__expand' onClick={(e) => {expandPropertie(e)}}>{overflow}</div>
         </div>
     )
 

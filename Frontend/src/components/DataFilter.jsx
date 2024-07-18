@@ -16,7 +16,7 @@ export default function DataFilter() {
                             historySignal.value = historySignal.value.slice(0, -1);
                         }}
                     >
-                        ←
+                        ⟵
                     </div>
                     <div>Выбор вложенности</div>
                 </div>

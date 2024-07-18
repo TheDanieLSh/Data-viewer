@@ -59,6 +59,11 @@
         &.expanded {
             height: auto;
             white-space: normal;
+            justify-content: space-between;
+
+            .property__name {
+                align-self: flex-start;
+            }
 
             .property__values {
                 display: block;
@@ -66,10 +71,17 @@
 
             .property__val {
                 display: block;
+                margin: 5px 0;
             }
 
             .property__separator {
                 display: none;
+            }
+
+            .property__expand {
+                padding: 0 7px;
+                align-self: flex-end;
+                background-color: rgb(152, 78, 32);
             }
         }
     }

@@ -33,18 +33,21 @@ export default function Propertie({ name, values, chosenValues }) {
     }
 
     const expandPropertie = (e) => {
-        if (e.target.innerHTML === '...') {
-            propertyRef.current.classList.add('expanded');
-            // e.target.innerHTML = '^';
-        }
-        if (e.target.innerHTML === '^') {
-            propertyRef.current.classList.remove('expanded');
-            // e.target.innerHTML = '...';
+        if (!expanded) {
+            setOverflow('^');
+            setExpanded(true);
+        } else {
+            setOverflow('...');
+            setExpanded(false);
+            window.scrollTo({
+                top: propertyRef.current.offsetTop - 50,
+                behavior: 'smooth',
+            });
         }
     }
 
     return (
-        <div className='property' ref={propertyRef}>
+        <div className={'property ' + (expanded && 'expanded')} ref={propertyRef}>
             <div className='property__name'>{name + ':'}</div>
             <div className='property__values' ref={valuesRef}>
                 {values.map(val => {

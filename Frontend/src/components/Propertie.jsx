@@ -32,7 +32,7 @@ export default function Propertie({ name, values, chosenValues }) {
         resultFilter();
     }
 
-    const expandPropertie = (e) => {
+    const expandPropertie = () => {
         if (!expanded) {
             setOverflow('^');
             setExpanded(true);
@@ -60,7 +60,7 @@ export default function Propertie({ name, values, chosenValues }) {
                         )
                 })}
             </div>
-            <div className='property__expand' onClick={(e) => {expandPropertie(e)}}>{overflow}</div>
+            <div className='property__expand' onClick={(e) => {expandPropertie()}}>{overflow}</div>
         </div>
     )
 

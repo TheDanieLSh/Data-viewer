@@ -39,8 +39,13 @@ export default function Propertie({ name, values, chosenValues }) {
         } else {
             setOverflow('...');
             setExpanded(false);
-            window.scrollTo({
-                top: propertyRef.current.offsetTop - 50,
+
+            const filterScroll = document.querySelector('.data-filter__scroll');
+            const filterRect = filterScroll.getBoundingClientRect();
+            const curPropRect = propertyRef.current.getBoundingClientRect();
+
+            filterScroll.scrollTo({
+                top: (curPropRect.top - filterRect.top) + filterScroll.scrollTop,
                 behavior: 'smooth',
             });
         }

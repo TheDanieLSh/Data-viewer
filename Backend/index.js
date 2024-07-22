@@ -15,6 +15,8 @@ router.get('/', (context) => {
 });
 
 router.post('/file_process', async (context) => {
+    console.log('Got a file process request');
+
     const link = await context.request.body.text();
     
     let outputFile;
@@ -22,6 +24,8 @@ router.post('/file_process', async (context) => {
     let isXML = false;
 
     await fetch(link).then(resp => {
+        console.log('Start fetching data');
+
         if (resp.headers.get('content-type').includes('application/json')) {
 
             return resp.json();
@@ -33,20 +37,28 @@ router.post('/file_process', async (context) => {
 
         } else console.log('Unsupported type of the file');
     }).then(result => {
+        console.log('Server received data');
 
         if (isXML) {
+            console.log('Parsing XML to JSON');
+
             const json = xmlJsonPrettify(xml2js(result, { compact: true }));
             outputFile = JSON.stringify(json, null, '\t');
 
         } else outputFile = result
 
+        console.log('Result is ready');
     });
 
     if (!outputFile) {
         context.response.body = 'Unsupported type of the file';
     } else {
         context.response.body = outputFile;
+        
+        console.log('Sending the result to client');
     }
+
+    console.log('----');
 })
 
 

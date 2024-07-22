@@ -10,10 +10,10 @@ export default function Filters() {
     if (Array.isArray(nestedSignal.value)) {
         nestedSignal.value.forEach(el => {
             if (typeof el === 'object') {
-                Object.keys(el).forEach(key => {
+                for (const key in el) {
                     if (!filtersObj[key]) filtersObj[key] = new Set();
                     filtersObj[key].add(el[key]);
-                })
+                }
             }
         });
     }

@@ -12,7 +12,6 @@ export default function DataDisplay() {
 
     return (
         <pre className="data-display">
-            {/* {JSON.stringify(Object.keys(filtered).length > 0 ? filtered : nested, null, 3)} */}
             {JSON.stringify(filtered ?? nested, null, 3)}
         </pre>
     )

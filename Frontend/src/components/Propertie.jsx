@@ -98,7 +98,7 @@ export default function Propertie({ name, values, chosenValues }) {
                     }
                 })}
             </div>
-            <div className='property__expand' onClick={(e) => {expandPropertie()}}>{overflow}</div>
+            <div className='property__expand' onClick={() => {expandPropertie()}}>{overflow}</div>
         </div>
     )
 

@@ -59,7 +59,7 @@ router.post('/file_process', async (context) => {
     }
 
     console.log('----');
-})
+});
 
 
 const HOST = 'localhost';

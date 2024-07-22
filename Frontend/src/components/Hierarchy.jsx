@@ -15,13 +15,6 @@ export default function Hierarchy() {
 
         if (Array.isArray(lvl)) {
             result = lvl.map((val, i) => i);
-            // lvl.forEach((val, i) => {
-            //     if (typeof val === 'object') {
-            //         result.push('{...}');
-            //     } else {
-            //         result.push(val);
-            //     }
-            // })
         } else {
             result = Object.keys(lvl).map(key => key);
         }
@@ -49,5 +42,3 @@ export default function Hierarchy() {
         </div>
     )
 }
-// https://lidgroup.ru/local/cron/new_import/xml_files/last/defanspremium.xml
-// https://a.fsk.ru/api/flats/flats-vladivostok

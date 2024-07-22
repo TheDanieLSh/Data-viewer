@@ -64,7 +64,7 @@ export default function Propertie({ name, values, chosenValues }) {
                     if (['string', 'number', 'boolean'].includes(typeof val)) {
                         return (
                             <>
-                                <div className='property__val' onClick={(e) => {toggleValue(e)}}>{val}</div>
+                                <div className='property__val' onClick={(e) => {toggleValue(e)}}>{String(val)}</div>
                                 <div className='property__separator'>;</div>
                             </>
                         )

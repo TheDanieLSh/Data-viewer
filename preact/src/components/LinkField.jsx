@@ -18,7 +18,15 @@ export default function LinkField() {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' },
             body: link,
-        }).then(resp => resp.json()).then(json => dataSignal.value = json);
+        }).then(resp => {
+            if (resp.ok) {
+                return resp.json();
+            } else {
+                throw new Error();
+            }
+        })
+        .then(json => dataSignal.value = json)
+        .catch(err => alert(err));
 
         setLoading(false);
     }

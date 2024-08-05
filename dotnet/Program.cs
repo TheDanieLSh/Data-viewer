@@ -1,5 +1,7 @@
 using System.Text.Json;
 using System.Net.Http;
+using System.Xml;
+using System.Xml.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -12,7 +14,7 @@ app.MapPost("/file_process", async (HttpRequest req) =>
 {
     Console.WriteLine("Got a file process request");
 
-    bool isXML = false;
+    string outputFile = "";
 
     using var streamReader = new StreamReader(req.Body);
 
@@ -25,12 +27,29 @@ app.MapPost("/file_process", async (HttpRequest req) =>
     if (resp.Content.Headers.ContentType?.MediaType == "application/json")
     {
         string json = await resp.Content.ReadAsStringAsync();
-        return json;
+
+        outputFile = json;
+
     } else if (resp.Content.Headers.ContentType?.MediaType == "text/xml")
     {
-        //do some stuff
+
+        string xml = await resp.Content.ReadAsStringAsync();
+
+        var xDoc = XDocument.Parse(xml);
+
+        string json = JsonSerializer.Serialize(XmlToDictionary(xDoc.Root));
+
+        outputFile = json;
     }
-    return $"Failed to fetch {link}";
+
+    if (String.IsNullOrEmpty(outputFile))
+    {
+        return $"Failed to fetch {link}";
+    }
+
+    Console.WriteLine("Sending the result to client");
+
+    return outputFile;
 });
 
 app.Run();

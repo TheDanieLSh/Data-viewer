@@ -1,7 +1,9 @@
 const express = require('express');
-const xml2js = require('xml2js').parseString;
+const { XMLParser } = require('fast-xml-parser');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+
+const xmlParser = new XMLParser();
 
 const app = express()
     .use(cors())
@@ -17,7 +19,8 @@ app.post('/file_process', async (req, res) => {
     console.log('Got a file process request');
 
     const link = await req.body;
-    
+
+
     let outputFile;
 
     let isXML = false;
@@ -25,11 +28,11 @@ app.post('/file_process', async (req, res) => {
     await fetch(link).then(resp => {
         console.log('Start fetching data');
 
-        if (resp.headers.get('content-type').includes('application/json')) {
+        if (resp.headers.get('Content-Type').includes('application/json')) {
 
             return resp.json();
 
-        } else if (resp.headers.get('content-type').includes('text/xml')) {
+        } else if (resp.headers.get('Content-Type').includes('text/xml')) {
 
             isXML = true;
             return resp;
@@ -41,8 +44,12 @@ app.post('/file_process', async (req, res) => {
         if (isXML) {
             console.log('Parsing XML to JSON');
 
-            const json = xmlJsonPrettify(xml2js(result, { compact: true }));
-            outputFile = JSON.stringify(json, null, '\t');
+            console.log(xmlParser.parse(result));
+            
+            // const json = xmlJsonPrettify(xml2js(result, { compact: true }, (err, res) => res));
+            // console.log('---->', json);
+            
+            // outputFile = JSON.stringify(json, null, '\t');
 
         } else outputFile = result;
 

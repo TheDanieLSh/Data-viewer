@@ -26,8 +26,10 @@ app.MapPost("/file_process", async (HttpRequest req) =>
     {
         string json = await resp.Content.ReadAsStringAsync();
         return json;
+    } else if (resp.Content.Headers.ContentType?.MediaType == "text/xml")
+    {
+        //do some stuff
     }
-
     return $"Failed to fetch {link}";
 });
 

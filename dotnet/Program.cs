@@ -32,9 +32,9 @@ app.MapPost("/file_process", async (HttpContext context) =>
 
     string link = await streamReader.ReadToEndAsync();
 
-    Console.WriteLine("Start fetching data");
-
     HttpResponseMessage resp = await HTTP.GetAsync(link);
+
+    Console.WriteLine("Server fetched data");
 
     string content = await resp.Content.ReadAsStringAsync();
     var contentType = resp.Content.Headers.ContentType?.MediaType;

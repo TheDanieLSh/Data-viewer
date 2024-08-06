@@ -41,12 +41,10 @@ app.MapPost("/file_process", async (HttpContext context) =>
 
     if (contentType == "application/json")
     {
-        Console.WriteLine("File is json");
         outputFile = content;
 
-    } else if (contentType == "text/xml")
+    } else if (contentType == "text/xml" || contentType == "application/xml")
     {
-        Console.WriteLine("File is xml");
         XDocument xDoc = XDocument.Parse(content);
 
         string json = JsonSerializer.Serialize(XmlToDictionary(xDoc.Root));

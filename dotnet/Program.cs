@@ -2,19 +2,33 @@ using System.Text.Json;
 using System.Xml.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
 
-var HTTP = new HttpClient();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowForAll",
+        builder =>
+        {
+            builder.WithOrigins("*")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        }
+        );
+});
+
+var app = builder.Build();
+app.UseCors("AllowForAll");
+
+HttpClient HTTP = new();
 
 app.MapGet("/", () => "Successfull response from server!");
 
-app.MapPost("/file_process", async (HttpRequest req) =>
+app.MapPost("/file_process", async (HttpContext context) =>
 {
     Console.WriteLine("Got a file process request");
 
     string outputFile = "";
 
-    using var streamReader = new StreamReader(req.Body);
+    using var streamReader = new StreamReader(context.Request.Body);
 
     string link = await streamReader.ReadToEndAsync();
 
@@ -28,26 +42,34 @@ app.MapPost("/file_process", async (HttpRequest req) =>
 
         outputFile = json;
 
+        context.Response.ContentType = "application/json";
+
     } else if (resp.Content.Headers.ContentType?.MediaType == "text/xml")
     {
 
         string xml = await resp.Content.ReadAsStringAsync();
 
-        var xDoc = XDocument.Parse(xml);
+        XDocument xDoc = XDocument.Parse(xml);
 
         string json = JsonSerializer.Serialize(XmlToDictionary(xDoc.Root));
 
         outputFile = json;
+
+        context.Response.ContentType = "application/json";
     }
 
     if (String.IsNullOrEmpty(outputFile))
     {
-        return $"Failed to fetch {link}";
+        context.Response.ContentType = "text/plain";
+
+        await context.Response.WriteAsync($"Failed to fetch {link}");
+
+        return;
     }
 
     Console.WriteLine("Sending the result to client");
 
-    return Results.Text(outputFile, "application/json");
+    await context.Response.WriteAsync(outputFile);
 });
 
 app.Run();

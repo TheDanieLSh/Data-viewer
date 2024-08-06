@@ -1,6 +1,4 @@
 using System.Text.Json;
-using System.Net.Http;
-using System.Xml;
 using System.Xml.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,7 +47,58 @@ app.MapPost("/file_process", async (HttpRequest req) =>
 
     Console.WriteLine("Sending the result to client");
 
-    return outputFile;
+    return Results.Text(outputFile, "application/json");
 });
 
 app.Run();
+
+
+Dictionary<string, object> XmlToDictionary(XElement element)
+{
+    var dict = new Dictionary<string, object>();
+
+    foreach (var node in element.Elements())
+    {
+        if (node.HasElements)
+        {
+            // Проверка, существует ли уже ключ
+            if (dict.ContainsKey(node.Name.LocalName))
+            {
+                // Если ключ уже существует, превращаем значение в список
+                if (dict[node.Name.LocalName] is List<object> list)
+                {
+                    list.Add(XmlToDictionary(node));
+                }
+                else
+                {
+                    dict[node.Name.LocalName] = new List<object> { dict[node.Name.LocalName], XmlToDictionary(node) };
+                }
+            }
+            else
+            {
+                dict[node.Name.LocalName] = XmlToDictionary(node);
+            }
+        }
+        else
+        {
+            // Обработка текстовых значений и атрибутов
+            if (dict.ContainsKey(node.Name.LocalName))
+            {
+                if (dict[node.Name.LocalName] is List<object> list)
+                {
+                    list.Add(node.Value);
+                }
+                else
+                {
+                    dict[node.Name.LocalName] = new List<object> { dict[node.Name.LocalName], node.Value };
+                }
+            }
+            else
+            {
+                dict[node.Name.LocalName] = node.Value;
+            }
+        }
+    }
+
+    return dict;
+}

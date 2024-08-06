@@ -28,7 +28,7 @@ app.MapPost("/file_process", async (HttpContext context) =>
 
     string outputFile = "";
 
-    using var streamReader = new StreamReader(context.Request.Body);
+    using StreamReader streamReader = new(context.Request.Body);
 
     string link = await streamReader.ReadToEndAsync();
 
@@ -36,36 +36,34 @@ app.MapPost("/file_process", async (HttpContext context) =>
 
     HttpResponseMessage resp = await HTTP.GetAsync(link);
 
-    if (resp.Content.Headers.ContentType?.MediaType == "application/json")
+    string content = await resp.Content.ReadAsStringAsync();
+    var contentType = resp.Content.Headers.ContentType?.MediaType;
+
+    if (contentType == "application/json")
     {
-        string json = await resp.Content.ReadAsStringAsync();
+        Console.WriteLine("File is json");
+        outputFile = content;
 
-        outputFile = json;
-
-        context.Response.ContentType = "application/json";
-
-    } else if (resp.Content.Headers.ContentType?.MediaType == "text/xml")
+    } else if (contentType == "text/xml")
     {
-
-        string xml = await resp.Content.ReadAsStringAsync();
-
-        XDocument xDoc = XDocument.Parse(xml);
+        Console.WriteLine("File is xml");
+        XDocument xDoc = XDocument.Parse(content);
 
         string json = JsonSerializer.Serialize(XmlToDictionary(xDoc.Root));
 
         outputFile = json;
-
-        context.Response.ContentType = "application/json";
     }
 
     if (String.IsNullOrEmpty(outputFile))
     {
         context.Response.ContentType = "text/plain";
 
-        await context.Response.WriteAsync($"Failed to fetch {link}");
+        await context.Response.WriteAsync($"Failed to fetch {link}. Output file is empty");
 
         return;
     }
+
+    context.Response.ContentType = "application/json";
 
     Console.WriteLine("Sending the result to client");
 

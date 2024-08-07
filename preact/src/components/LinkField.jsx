@@ -14,7 +14,7 @@ export default function LinkField() {
 
         if (dataSignal.value) dataSignal.value = {};
 
-        await fetch('https://localhost:4090/file_process', {
+        await fetch('http://localhost:4090/file_process', {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' },
             body: link,

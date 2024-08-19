@@ -1,6 +1,8 @@
 using System.Text.Json;
 using System.Xml.Linq;
 
+// Õ¿—“–Œ… ¿ —≈–¬≈–¿
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
@@ -19,6 +21,8 @@ var app = builder.Build();
 app.UseCors("AllowForAll");
 
 HttpClient HTTP = new();
+
+// Œ¡–¿¡Œ“ ¿ –Œ”“Œ¬
 
 app.MapGet("/", () => "Successfull response from server!");
 
@@ -70,7 +74,7 @@ app.MapPost("/file_process", async (HttpContext context) =>
 
 app.Run();
 
-
+// —œ≈÷»¿À‹Õ€≈ ‘”Õ ÷»»
 Dictionary<string, object> XmlToDictionary(XElement element)
 {
     var dict = new Dictionary<string, object>();

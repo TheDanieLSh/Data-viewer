@@ -1,5 +1,5 @@
 import { render } from 'preact'
-import LinkField from './components/LinkField'
+import Header from './components/Header'
 import Workspace from './components/Workspace'
 import './css/index.scss'
 
@@ -7,7 +7,7 @@ function App() {
 
     return (
         <>  
-            <LinkField />
+            <Header />
             <Workspace />
         </>
     )

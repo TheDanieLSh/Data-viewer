@@ -42,8 +42,39 @@ export default function Header() {
         }
     }, [nestedSignal.value, filteredSignal.value]);
 
+
+    const dndCover = document.querySelector('.dnd-cover');
+    let isDragging = false;
+
+    const dragOverHandle = (e) => {
+        e.preventDefault();
+
+        if (!isDragging) {
+            isDragging = true;
+            dndCover.style.display = 'block';
+        }
+    }
+    const dragLeaveHandle = (e) => {
+        e.preventDefault();
+
+        if (e.clientX === 0 && e.clientY === 0) {
+            isDragging = false;
+            dndCover.style.display = 'none';
+        }
+    }
+    const dropHandle = () => {
+
+    }
+
+    useEffect(() => {
+        window.addEventListener('dragover', dragOverHandle);
+        window.addEventListener('dragleave', dragLeaveHandle);
+        window.addEventListener('drop', dropHandle);
+    })
+
     return (
         <div className='header'>
+            <div className='dnd-cover'></div>
             <div className="link-field">
                 <form onSubmit={(e) => dataLoad(e)}>
                     <label>Вставьте ссылку на файл:</label>

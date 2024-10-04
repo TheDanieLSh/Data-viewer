@@ -7,10 +7,20 @@ export default function Header() {
 
     const targetBackend = window.location.host.includes('localhost') ? 'http://localhost' : 'https://data-viewer.art3d.ru';
 
-    const dataLoad = async (e) => {
+    const dataLoad = async (e, dndFile) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        const link = formData.get('dataLink');
+
+        let data;
+
+        switch (e.type) {
+            case 'submit':
+                const formData = new FormData(e.target);
+                data = formData.get('dataLink');
+                break;
+            case 'drop':
+                data = dndFile;
+                break;
+        }
 
         setLoading(true);
 
@@ -19,7 +29,7 @@ export default function Header() {
         await fetch(`${targetBackend}:4090/file_process`, {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' },
-            body: link,
+            body: data,
         }).then(resp => {
             if (resp.ok) {
                 return resp.json();
@@ -62,14 +72,31 @@ export default function Header() {
             dndCover.style.display = 'none';
         }
     }
-    const dropHandle = () => {
+    const dropHandle = (e) => {
+        e.preventDefault();
 
+        isDragging = false;
+        dndCover.style.display = 'none';
+
+        const file = e.dataTransfer.files[0];
+        const fileReader = new FileReader();
+        fileReader.onload = (readEvent) => {
+            const result = readEvent.target.result;
+            dataLoad(e, result);
+        }
+        fileReader.readAsText(file);
     }
 
     useEffect(() => {
         window.addEventListener('dragover', dragOverHandle);
         window.addEventListener('dragleave', dragLeaveHandle);
         window.addEventListener('drop', dropHandle);
+
+        return () => {
+            window.removeEventListener('dragover', dragOverHandle);
+            window.removeEventListener('dragleave', dragLeaveHandle);
+            window.removeEventListener('drop', dropHandle);
+        };
     })
 
     return (

@@ -34,14 +34,27 @@ app.MapPost("/file_process", async (HttpContext context) =>
 
     using StreamReader streamReader = new(context.Request.Body);
 
-    string link = await streamReader.ReadToEndAsync();
+    string payload = await streamReader.ReadToEndAsync();
 
-    HttpResponseMessage resp = await HTTP.GetAsync(link);
+    string content;
+    string? contentType;
+
+    if (context.Request.Headers.ContentType != "text/plain")
+    {
+        content = payload;
+        contentType = context.Request.Headers.ContentType;
+
+        goto FetchingSkip;
+    }
+
+    HttpResponseMessage resp = await HTTP.GetAsync(payload);
 
     Console.WriteLine("Server fetched data");
 
-    string content = await resp.Content.ReadAsStringAsync();
-    var contentType = resp.Content.Headers.ContentType?.MediaType;
+    content = await resp.Content.ReadAsStringAsync();
+    contentType = resp.Content.Headers.ContentType?.MediaType;
+
+    FetchingSkip:
 
     if (contentType == "application/json")
     {
@@ -60,7 +73,7 @@ app.MapPost("/file_process", async (HttpContext context) =>
     {
         context.Response.ContentType = "text/plain";
 
-        await context.Response.WriteAsync($"Failed to fetch {link}. Output file is empty");
+        await context.Response.WriteAsync($"Failed to fetch {payload}. Output file is empty");
 
         return;
     }

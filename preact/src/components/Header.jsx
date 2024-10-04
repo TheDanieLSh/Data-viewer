@@ -7,8 +7,10 @@ export default function Header() {
 
     const targetBackend = window.location.host.includes('localhost') ? 'http://localhost' : 'https://data-viewer.art3d.ru';
 
-    const dataLoad = async (e, dndFile) => {
+    const dataLoad = async (e, dndFile, extension) => {
         e.preventDefault();
+
+        const contentType = extension ? getContentType(extension) : 'text/plain';
 
         let data;
 
@@ -28,7 +30,7 @@ export default function Header() {
 
         await fetch(`${targetBackend}:4090/file_process`, {
             method: 'POST',
-            headers: { 'Content-Type': 'text/plain' },
+            headers: { 'Content-Type': contentType },
             body: data,
         }).then(resp => {
             if (resp.ok) {
@@ -79,10 +81,13 @@ export default function Header() {
         dndCover.style.display = 'none';
 
         const file = e.dataTransfer.files[0];
+
+        const ext = file.name.split('.')[1];
+
         const fileReader = new FileReader();
         fileReader.onload = (readEvent) => {
             const result = readEvent.target.result;
-            dataLoad(e, result);
+            dataLoad(e, result, ext);
         }
         fileReader.readAsText(file);
     }
@@ -114,4 +119,15 @@ export default function Header() {
             <div className='total-count'>{totalSignal.value}</div>
         </div>
     )
+
+    function getContentType(ext) {
+        switch (ext) {
+            case 'json':
+                return 'application/json';
+            case 'xml':
+                return 'text/xml';
+            default:
+                return null;    
+        }
+    }
 }

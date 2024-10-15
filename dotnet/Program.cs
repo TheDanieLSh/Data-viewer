@@ -44,7 +44,7 @@ app.MapPost("/file_process", async (HttpContext context) =>
         content = payload;
         contentType = context.Request.Headers.ContentType;
 
-        goto FetchingSkip;
+        goto FileProcess;
     }
 
     HttpResponseMessage resp = await HTTP.GetAsync(payload);
@@ -54,7 +54,7 @@ app.MapPost("/file_process", async (HttpContext context) =>
     content = await resp.Content.ReadAsStringAsync();
     contentType = resp.Content.Headers.ContentType?.MediaType;
 
-    FetchingSkip:
+    FileProcess:
 
     if (contentType == "application/json")
     {
@@ -90,7 +90,7 @@ app.Run();
 // —œ≈÷»¿À‹Õ€≈ ‘”Õ ÷»»
 Dictionary<string, object> XmlToDictionary(XElement element)
 {
-    var dict = new Dictionary<string, object>();
+    Dictionary<string, object> dict = [];
 
     foreach (var node in element.Elements())
     {

@@ -63,7 +63,7 @@ export default function Header() {
 
         if (!isDragging) {
             isDragging = true;
-            dndCover.style.display = 'block';
+            dndCover.style.opacity = '1';
         }
     }
     const dragLeaveHandle = (e) => {
@@ -71,14 +71,14 @@ export default function Header() {
 
         if (e.clientX === 0 && e.clientY === 0) {
             isDragging = false;
-            dndCover.style.display = 'none';
+            dndCover.style.opacity = '0';
         }
     }
     const dropHandle = (e) => {
         e.preventDefault();
 
         isDragging = false;
-        dndCover.style.display = 'none';
+        dndCover.style.opacity = '0';
 
         const file = e.dataTransfer.files[0];
 
